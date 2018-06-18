@@ -1,0 +1,27 @@
+{
+    "name": "designbycode/laravel-luna-presets",
+    "description": "This packages addes Luna-sass Framework to laravel to replace bootstrap",
+    "keywords": [],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Claude Myburgh",
+            "email": "claude@designbycode.co.za"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+
+        "psr-4": {
+            "DesignByCode\\LunaPresets\\": "src/"
+        }
+    },
+    "extra" : {
+        "laravel": {
+            "providers": [
+                "DesignByCode\\LunaPresets\\LunaServiceProvider"
+            ]
+        }
+    },
+    "require": {}
+}
