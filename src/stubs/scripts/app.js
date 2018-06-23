@@ -6,6 +6,7 @@
  */
 
 require('./bootstrap');
+const luna =  require('luna-sass/Framework/js/luna.js');
 
 // window.Vue = require('vue');
 
@@ -20,3 +21,13 @@ require('./bootstrap');
 // const app = new Vue({
 //     el: '#app'
 // });
+
+(function($, window, document){
+
+    'use strict';
+
+
+    $(document).Luna();
+
+
+})(jQuery, window, document);
