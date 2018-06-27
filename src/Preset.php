@@ -19,10 +19,6 @@ class Preset extends LunaPreset
         static::updateMix();
         static::updateScripts();
         static::updateStyles();
-        static::updateViews();
-        static::settingsVars();
-        static::updateAuthViews();
-
     }
 
 
@@ -43,11 +39,19 @@ class Preset extends LunaPreset
      */
     public static function updatePackageArray($packages)
     {
-        return array_merge(["luna-sass" => "^1.0.0"], Arr::except($packages, [
-            "popper.js",
-            "bootstrap",
-            "lodash",
-        ]));
+        return array_merge(
+            [
+                "luna-sass" => "1.x",
+                "path" => "^0.12.7",
+                "imagemin-webpack-plugin" => "^2.1.5",
+                "copy-webpack-plugin" => "^4.5.1",
+                "imagemin-mozjpeg" => "^7.0.0"
+
+            ], Arr::except($packages, [
+                "popper.js",
+                "bootstrap",
+                "lodash",
+            ]));
     }
 
 
@@ -79,61 +83,8 @@ class Preset extends LunaPreset
         copy(__DIR__.'/stubs/styles/style.sass', resource_path('assets/sass/style.sass'));
         mkdir(resource_path('assets/sass/project'));
 
-
-        if (file_exists(base_path('node_modules/luna-sass/Framework/sass/_settings.sass'))) {
-
-            $file = base_path('resources/assets/sass/_settings.sass');
-
-            copy(base_path('node_modules/luna-sass/Framework/sass/_settings.sass'), $file);
-
-        }else {
-            File::put(resource_path('assets/sass/_settings.sass'), '//Copy _settings.sass content in here from luna-sass in node_modules');
-        }
-
-
-
     }
 
-
-    /**
-     * [updateViews description]
-     * @return [type] [description]
-     */
-    public static function updateViews()
-    {
-        copy(__DIR__.'/stubs/views/welcome.blade.php', resource_path('views/welcome.blade.php'));
-        copy(__DIR__.'/stubs/views/home.blade.php', resource_path('views/home.blade.php'));
-    }
-
-
-    public static function updateAuthViews()
-    {
-
-    }
-
-
-
-
-    /**
-     * [settingsVars description]
-     * @return [type] [description]
-     */
-    public static function settingsVars()
-    {
-
-        $file = base_path('resources/assets/sass/_settings.sass');
-        if (file_exists($file)) {
-            $contents = file_get_contents($file);
-            $fn = fopen($file, "w");
-            $var1 = "vendor/icons";
-            $var2 = "~luna-sass/Framework/sass/vendor/icons";
-            $contents = str_replace($var1, $var2 ,$contents);
-            fwrite($fn, $contents);
-            fclose($fn);
-
-        }
-
-    }
 
 
 

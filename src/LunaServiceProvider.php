@@ -13,8 +13,7 @@ class LunaServiceProvider extends ServiceProvider
 
 
     protected $commands = [
-        "DesignByCode\LunaPresets\Console\Commands\LunaAuth",
-        "DesignByCode\LunaPresets\Console\Commands\LunaViews"
+        "DesignByCode\LunaPresets\Console\Commands\LunaStart"
     ];
 
     /**
