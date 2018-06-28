@@ -89,7 +89,7 @@ class Preset extends LunaPreset
 
     public static function updateWelcome()
     {
-        copy(__DIR__.'/../../stubs/views/welcome.blade.php', resource_path('/views/welcome.blade.php'));
+        copy(__DIR__.'/stubs/views/welcome.blade.php', resource_path('/views/welcome.blade.php'));
     }
 
 
