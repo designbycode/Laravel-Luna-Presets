@@ -145,7 +145,7 @@ class LunaStart extends Command
         copy(__DIR__.'/../../Http/Controllers/PagesController.php', app_path('Http/Controllers/PagesController.php'));
 
         $this->info('All Auth views created');
-
+        $this->info('Thanks for using Luna-sass');
 
     }
 
