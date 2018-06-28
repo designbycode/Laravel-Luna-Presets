@@ -19,6 +19,7 @@ class Preset extends LunaPreset
         static::updateMix();
         static::updateScripts();
         static::updateStyles();
+        static::updateWelcome();
     }
 
 
@@ -82,7 +83,13 @@ class Preset extends LunaPreset
     {
         copy(__DIR__.'/stubs/styles/style.sass', resource_path('assets/sass/style.sass'));
         mkdir(resource_path('assets/sass/project'));
+        mkdir(resource_path('assets/img'));
 
+    }
+
+    public static function updateWelcome()
+    {
+        copy(__DIR__.'/../../stubs/views/welcome.blade.php', resource_path('/views/welcome.blade.php'));
     }
 
 

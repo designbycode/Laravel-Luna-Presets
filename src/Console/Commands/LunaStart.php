@@ -115,10 +115,6 @@ class LunaStart extends Command
             unlink(app_path('Http/Controllers/HomeController.php'));
         }
 
-        // if (File::exists(app_path('Http/Controllers/Auth'))){
-        //     File::deleteDirectory(app_path('Http/Controllers/Auth'));
-        // }
-
     }
 
     /**
