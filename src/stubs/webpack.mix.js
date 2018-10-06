@@ -15,7 +15,7 @@ mix.webpackConfig({
     plugins: [
         //Compress images
         new CopyWebpackPlugin([{
-            from: 'resources/assets/img', // FROM
+            from: 'resources/img', // FROM
             to: 'img/', // TO
         }]),
         new ImageminPlugin({
@@ -34,5 +34,5 @@ mix.webpackConfig({
     ],
     })
 
-.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/style.sass', 'public/css');
+.js('resources/js/app.js', 'public/js')
+   .sass('resources/sass/style.sass', 'public/css');

@@ -53,7 +53,7 @@ class LunaStart extends Command
     {
         if (file_exists(base_path('node_modules/luna-sass/Framework/sass/_settings.sass'))) {
 
-            $file = base_path('resources/assets/sass/_settings.sass');
+            $file = base_path('resources/sass/_settings.sass');
 
             if (file_exists($file)) {
                 if ($this->confirm('Is file already exists. Do you want to override it ?')) {
@@ -79,7 +79,7 @@ class LunaStart extends Command
     public function settingsVars()
     {
 
-        $file = base_path('resources/assets/sass/_settings.sass');
+        $file = base_path('resources/sass/_settings.sass');
         if (file_exists($file)) {
             $contents = file_get_contents($file);
             $fn = fopen($file, "w");
@@ -136,6 +136,7 @@ class LunaStart extends Command
         copy(__DIR__.'/../../stubs/views/home.blade.php', resource_path('/views/home.blade.php'));
         copy(__DIR__.'/../../stubs/views/auth/login.blade.php', resource_path('/views/auth/login.blade.php'));
         copy(__DIR__.'/../../stubs/views/auth/register.blade.php', resource_path('/views/auth/register.blade.php'));
+        copy(__DIR__.'/../../stubs/views/auth/verify.blade.php', resource_path('/views/auth/verify.blade.php'));
         copy(__DIR__.'/../../stubs/views/auth/passwords/email.blade.php', resource_path('/views/auth/passwords/email.blade.php'));
         copy(__DIR__.'/../../stubs/views/auth/passwords/reset.blade.php', resource_path('/views/auth/passwords/reset.blade.php'));
         copy(__DIR__.'/../../Http/Controllers/PagesController.php', app_path('Http/Controllers/PagesController.php'));
@@ -168,7 +169,7 @@ class LunaStart extends Command
     public function setupAuth()
     {
         $file = fopen(base_path('/routes/web.php'), "a+");
-        $string = "\nAuth::routes(); \nRoute::get('/home', 'PagesController@index')->name('home'); \n";
+        $string = "\nAuth::routes(['verify' => true]); \nRoute::get('/home', 'PagesController@index')->name('home'); \n";
         fwrite($file, $string);
         fclose($file);
     }

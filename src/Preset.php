@@ -29,7 +29,7 @@ class Preset extends LunaPreset
      */
     public static function cleanSassDirectory()
     {
-        File::cleanDirectory(resource_path('assets/sass'));
+        File::cleanDirectory(resource_path('sass'));
         File::cleanDirectory(public_path('css'));
     }
 
@@ -71,8 +71,8 @@ class Preset extends LunaPreset
      */
     public static function updateScripts()
     {
-        copy(__DIR__.'/stubs/scripts/app.js', resource_path('assets/js/app.js'));
-        copy(__DIR__.'/stubs/scripts/bootstrap.js', resource_path('assets/js/bootstrap.js'));
+        copy(__DIR__.'/stubs/scripts/app.js', resource_path('js/app.js'));
+        copy(__DIR__.'/stubs/scripts/bootstrap.js', resource_path('js/bootstrap.js'));
     }
 
     /**
@@ -81,9 +81,9 @@ class Preset extends LunaPreset
      */
     public static function updateStyles()
     {
-        copy(__DIR__.'/stubs/styles/style.sass', resource_path('assets/sass/style.sass'));
-        mkdir(resource_path('assets/sass/project'));
-        mkdir(resource_path('assets/img'));
+        copy(__DIR__.'/stubs/styles/style.sass', resource_path('sass/style.sass'));
+        mkdir(resource_path('sass/project'));
+        mkdir(resource_path('img'));
 
     }
 
