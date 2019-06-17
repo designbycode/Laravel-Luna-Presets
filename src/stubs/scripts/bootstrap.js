@@ -2,9 +2,8 @@
 window._ = require('lodash');
 
 /**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
+ * We'll load jQuery. This code may be modified to fit the
+ *  specific needs of your application.
  */
 
 try {
@@ -21,6 +20,13 @@ try {
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+/**
+ * Use appurl in javascipt to get url
+ */
+const appurl = document.head.querySelector('meta[name="app-url"]');
+
+window.appurl = appurl.content;
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that

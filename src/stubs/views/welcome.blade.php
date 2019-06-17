@@ -167,9 +167,9 @@
                 </div>
 
                 <div class="links">
-                    <a class="btn" href="https://laravel.com/docs">Laravel Documentation</a>
-                    <a class="btn" href="https://laracasts.com">Luna Documentation</a>
-                    <a class="btn" href="https://github.com/laravel/laravel">GitHub</a>
+                    <a class="btn " href="https://laravel.com/docs">Laravel Documentation</a>
+                    <a class="btn btn--primary" href="https://designbycode.github.io/Luna/Build/index.html">Luna Documentation</a>
+                    <a class="btn " href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
         </div>
