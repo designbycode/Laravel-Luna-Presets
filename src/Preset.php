@@ -47,7 +47,9 @@ class Preset extends LunaPreset
                 "path" => "^0.12.7",
                 "imagemin-webpack-plugin" => "^2.x",
                 "copy-webpack-plugin" => "^4.x",
-                "imagemin-mozjpeg" => "^7.x"
+                "imagemin-mozjpeg" => "^7.x",
+                "jquery": "^3.4.1",
+                "vue": "^2.6.10"
             ], Arr::except($packages, [
                 "popper.js",
                 "bootstrap",
