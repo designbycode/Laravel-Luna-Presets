@@ -5,6 +5,9 @@ namespace DesignByCode\LunaPresets\Console\Commands;
 use File;
 use Illuminate\Console\Command;
 use Artisan;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+
 
 class LunaStart extends Command
 {
@@ -56,13 +59,12 @@ class LunaStart extends Command
             $file = base_path('resources/sass/_settings.sass');
 
             if (file_exists($file)) {
-                if ($this->confirm('Is file already exists. Do you want to override it ?')) {
+                if ($this->choice('_settings file already exists. Do you want to override it ?', ['yes', 'no'], 0)) {
                     copy(base_path('node_modules/luna-sass/Framework/sass/_settings.sass'), $file);
                 }
             }else{
                 copy(base_path('node_modules/luna-sass/Framework/sass/_settings.sass'), $file);
             }
-
 
         }else {
            $this->info('node_module for luna-sass not found.');
@@ -71,15 +73,14 @@ class LunaStart extends Command
 
     }
 
-
     /**
      * Change this file path for lunacon icons
      * @return [type] [description]
      */
     public function settingsVars()
     {
-
         $file = base_path('resources/sass/_settings.sass');
+
         if (file_exists($file)) {
             $contents = file_get_contents($file);
             $fn = fopen($file, "w");
@@ -88,9 +89,7 @@ class LunaStart extends Command
             $contents = str_replace($var1, $var2 ,$contents);
             fwrite($fn, $contents);
             fclose($fn);
-
         }
-
     }
 
     /**
@@ -123,6 +122,13 @@ class LunaStart extends Command
      */
     public function copyLuna()
     {
+        if (File::exists(resource_path('/views/partials'))){
+            File::deleteDirectory(resource_path('/views/partials'));
+        }
+
+        if (File::exists(resource_path('/views/layouts'))){
+            File::deleteDirectory(resource_path('/views/layouts'));
+        }
 
         if (!File::exists(resource_path('/views/auth'))) {
             mkdir(resource_path('/views/auth/passwords'), 0775, true);
@@ -132,18 +138,21 @@ class LunaStart extends Command
             mkdir(resource_path('/views/layouts'), 0775, true);
         }
 
-        copy(__DIR__.'/../../stubs/views/layouts/app.blade.php', resource_path('/views/layouts/app.blade.php'));
-        copy(__DIR__.'/../../stubs/views/home.blade.php', resource_path('/views/home.blade.php'));
-        copy(__DIR__.'/../../stubs/views/auth/login.blade.php', resource_path('/views/auth/login.blade.php'));
-        copy(__DIR__.'/../../stubs/views/auth/register.blade.php', resource_path('/views/auth/register.blade.php'));
-        copy(__DIR__.'/../../stubs/views/auth/verify.blade.php', resource_path('/views/auth/verify.blade.php'));
-        copy(__DIR__.'/../../stubs/views/auth/passwords/email.blade.php', resource_path('/views/auth/passwords/email.blade.php'));
-        copy(__DIR__.'/../../stubs/views/auth/passwords/reset.blade.php', resource_path('/views/auth/passwords/reset.blade.php'));
+        if (!File::exists(resource_path('/views/partials'))) {
+            mkdir(resource_path('/views/partials'), 0775, true);
+        }
+
+        copy(__DIR__.'/../../stubs/styles/style.sass', resource_path('/sass/style.sass'));
+
+        $this->recursive_copy(__DIR__.'/../../stubs/views/', resource_path('/views'));
+
+        $this->recursive_copy(__DIR__ .'/../../stubs/styles', resource_path('sass'));
+
         copy(__DIR__.'/../../Http/Controllers/PagesController.php', app_path('Http/Controllers/PagesController.php'));
 
         $this->info('All Auth views created');
-        $this->info('Thanks for using Luna-sass');
 
+        $this->info('Thanks for using Luna-sass');
     }
 
     /**
@@ -153,13 +162,12 @@ class LunaStart extends Command
     public function makeAuth()
     {
         if ($ans = $this->choice('Do you want to setup auth routes ? ', ['yes', 'no'], 0)) {
-
             if ( $ans === "yes") {
                 $this->setupAuth();
                 $this->info('Auth routes setup');
-                $this->copyLuna();
             }
         }
+        $this->copyLuna();
     }
 
     /**
@@ -172,6 +180,22 @@ class LunaStart extends Command
         $string = "\nAuth::routes(['verify' => true]); \nRoute::get('/home', 'PagesController@index')->name('home'); \n";
         fwrite($file, $string);
         fclose($file);
+    }
+
+    public function recursive_copy($src, $dst) {
+        $dir = opendir($src);
+        @mkdir($dst);
+        while(( $file = readdir($dir)) ) {
+            if (( $file != '.' ) && ( $file != '..' )) {
+                if ( is_dir($src . '/' . $file) ) {
+                    $this->recursive_copy($src .'/'. $file, $dst .'/'. $file);
+                }
+                else {
+                    copy($src .'/'. $file,$dst .'/'. $file);
+                }
+            }
+        }
+        closedir($dir);
     }
 
 

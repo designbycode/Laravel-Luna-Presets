@@ -2,15 +2,6 @@
 
 @section('content')
 <div class="wrapper">
-    @if (session('status'))
-        <div class="row">
-            <div class="col">
-                    <div class="notify notify--success" role="alert">
-                        {{ session('status') }}
-                    </div>
-            </div>
-        </div>
-    @endif
     <div class="row">
         <div class="md-col-12">
             <div class="panel panel--default">

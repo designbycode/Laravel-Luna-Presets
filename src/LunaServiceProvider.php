@@ -24,6 +24,7 @@ class LunaServiceProvider extends ServiceProvider
     public function boot()
     {
         PresetCommand::macro('luna', function ($command) {
+
             Preset::install();
 
             $command->info('Thanks for using Luna-sass');

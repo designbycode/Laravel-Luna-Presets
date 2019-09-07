@@ -14,6 +14,7 @@ class Preset extends LunaPreset
      */
     public static function install()
     {
+        static::removeAppProvider();
         static::cleanSassDirectory();
         static::updatePackages();
         static::updateMix();
@@ -44,17 +45,15 @@ class Preset extends LunaPreset
             [
                 "luna-sass" => "1.x",
                 "path" => "^0.12.7",
-                "imagemin-webpack-plugin" => "^2.1.5",
-                "copy-webpack-plugin" => "^4.5.1",
-                "imagemin-mozjpeg" => "^7.0.0"
-
+                "imagemin-webpack-plugin" => "^2.x",
+                "copy-webpack-plugin" => "^4.x",
+                "imagemin-mozjpeg" => "^7.x"
             ], Arr::except($packages, [
                 "popper.js",
                 "bootstrap",
-                "lodash",
+                "lodash"
             ]));
     }
-
 
     /**
      * [updateMix description]
@@ -87,12 +86,26 @@ class Preset extends LunaPreset
 
     }
 
+    /**
+     * Copy Welcome View
+     */
     public static function updateWelcome()
     {
         copy(__DIR__.'/stubs/views/welcome.blade.php', resource_path('/views/welcome.blade.php'));
     }
 
+    public static function removeAppProvider($path = 'Providers/AppServiceProvider.php')
+    {
+        $file = app_path($path);
 
+        if (!file_exists($file)) {
+            echo ("Error deleted: $file not found! \n");
+        }else {
+            unlink($file);
+            copy(__DIR__.'/stubs/providers/AppServiceProvider.php', app_path('/Providers/AppServiceProvider.php'));
+            echo ("Successfully Updated $file \n");
+        }
+    }
 
 
 }
